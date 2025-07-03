@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alphatek - Feature Cards (Final Perfected)</title>
+    <title>Alphatek - Feature Cards (Stylish Mobile Swipeable)</title>
 
     <!-- External Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,35 +32,132 @@
             line-height: 1.7;
             font-weight: var(--font-weight-light);
         }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .container { 
+            width: 90%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
         h2, h3 { font-weight: var(--font-weight-bold); color: var(--color-brand-white); margin: 0; }
         p { margin-bottom: 0; }
-        .content-section { padding: 80px 20px; }
-        h2.section-title { font-size: clamp(2rem, 5vw, 2.8rem); text-align: center; margin-bottom: 1.5em; font-weight: var(--font-weight-bold); }
+        
+        .content-section { 
+            padding: 80px 0; 
+        }
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 60px 0; 
+            }
+        }
+        @media (max-width: 480px) {
+            .content-section {
+                padding: 40px 0; 
+            }
+        }
+
+        h2.section-title { 
+            font-size: clamp(2rem, 5vw, 2.8rem); 
+            text-align: center; 
+            margin-bottom: 1.5em; 
+            font-weight: var(--font-weight-bold); 
+            padding: 0 20px; 
+        }
+        @media (max-width: 768px) {
+            h2.section-title {
+                margin-bottom: 1em; 
+            }
+        }
         /* --- END: ESSENTIAL STYLES --- */
 
-        /* --- START: FINAL CORRECTED CSS --- */
+        /* --- START: DESKTOP GRID LAYOUT (DEFAULT) --- */
         .features-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 40px; 
             max-width: 1200px;
             margin: auto;
+            padding: 0 20px; 
         }
 
         .feature-card-v2 {
             position: relative;
             border-radius: 16px;
             overflow: hidden;
-            min-height: 500px;
-            display: flex;
+            min-height: 500px; 
+            display: flex; 
+            flex-direction: column; 
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.4s ease;
         }
         .feature-card-v2:hover {
             transform: translateY(-10px);
         }
+        /* --- END: DESKTOP GRID LAYOUT --- */
 
+        /* --- START: MOBILE SWIPEABLE LAYOUT --- */
+        @media (max-width: 768px) { 
+            .features-grid {
+                display: flex; 
+                overflow-x: scroll; 
+                scroll-snap-type: x mandatory; 
+                -webkit-overflow-scrolling: touch; 
+                gap: 20px; 
+                padding: 0 20px 20px; /* Padding for visual spacing and to expose next card */
+                margin-left: 0; 
+                margin-right: 0; 
+                width: 100%; 
+                
+                scrollbar-width: none; 
+            }
+            .features-grid::-webkit-scrollbar {
+                display: none; 
+            }
+
+            .feature-card-v2 {
+                flex-shrink: 0; 
+                width: 85vw; /* Each card takes up 85% of viewport width */
+                min-height: 400px; 
+                scroll-snap-align: start; 
+                margin-bottom: 0; 
+            }
+             @media (max-width: 400px) {
+                .feature-card-v2 {
+                    width: 90vw; 
+                    min-height: 380px; 
+                }
+            }
+        }
+        /* --- END: MOBILE SWIPEABLE LAYOUT --- */
+
+        /* --- START: CAROUSEL PAGINATION (DOTS) STYLES --- */
+        .carousel-pagination {
+            display: none; /* Hidden by default, only shown on mobile */
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 10px; /* Space between dots */
+        }
+        @media (max-width: 768px) {
+            .carousel-pagination {
+                display: flex; /* Show on mobile */
+            }
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--color-brand-accent);
+            transform: scale(1.2); /* Slightly larger for active dot */
+        }
+        /* --- END: CAROUSEL PAGINATION (DOTS) STYLES --- */
+
+        /* --- START: SHARED CARD STYLES (applies to both desktop and mobile) --- */
         .feature-card-v2 .card-background {
             position: absolute;
             top: 0; left: 0;
@@ -95,26 +192,37 @@
             position: relative;
             z-index: 3;
             width: 100%;
-            /* This pushes all content down from the top, ensuring alignment */
-            padding: 8rem 35px 2.5rem 35px; 
+            padding: 2.5rem 35px; 
+            margin-top: auto; 
+        }
+        @media (max-width: 480px) {
+            .feature-card-v2 .feature-content-v2 {
+                padding: 2rem 25px; 
+            }
         }
 
         .icon-container {
             width: 100%;
-            text-align: center; /* THIS CENTERS THE ICON */
+            text-align: center; 
             font-size: 2.5rem;
             color: var(--color-brand-accent);
-            margin-bottom: 1.8em; /* Reduced space between icon and text */
+            margin-bottom: 1.8em; 
             transition: color 0.4s ease, transform 0.4s ease;
         }
         .feature-card-v2:hover .icon-container {
             transform: scale(1.1);
             color: var(--color-brand-white);
         }
+        @media (max-width: 480px) {
+            .icon-container {
+                font-size: 2.2rem; 
+                margin-bottom: 1.5em; 
+            }
+        }
 
         .text-container {
             width: 100%;
-            text-align: left; /* THIS LEFT-ALIGNS THE TEXT */
+            text-align: left; 
         }
         
         .text-container h3 {
@@ -123,14 +231,26 @@
             margin-bottom: 0.8em;
             line-height: 1.2;
         }
+        @media (max-width: 480px) {
+            .text-container h3 {
+                font-size: 1.6rem; 
+                margin-bottom: 0.6em;
+            }
+        }
 
         .text-container p {
             font-size: 0.95rem;
             color: var(--color-grey-light);
             line-height: 1.5;
-            max-width: 35ch;
+            max-width: 35ch; 
         }
-        /* --- END: FINAL CORRECTED CSS --- */
+        @media (max-width: 768px) {
+            .text-container p {
+                font-size: 1rem; 
+                max-width: none; 
+            }
+        }
+        /* --- END: SHARED CARD STYLES --- */
     </style>
 </head>
 <body>
@@ -138,58 +258,130 @@
     <section class="content-section features-section">
         <div class="container">
             <h2 class="section-title">Rooted in Research. Ready for Reality.</h2>
-            <div class="features-grid">
-                <!-- Card 1: Grounded in Science -->
-                <div class="feature-card-v2">
-                    <div class="card-background">
-                        <img src="https://storage.googleapis.com/files_webpage/About%20us%20background%20pictures/Science.jpg" alt="Scientific research collaboration">
-                    </div>
-                    <div class="feature-overlay"></div>
-                    <div class="feature-content-v2">
-                        <div class="icon-container">
-                            <i class="fas fa-flask"></i>
-                        </div>
-                        <div class="text-container">
-                            <h3>Grounded in Science</h3>
-                            <p>Our platform is built on established biomechanical principles, developed in collaboration with the Norwegian School of Sport Sciences.</p>
-                        </div>
-                    </div>
+        </div>
+        <div class="features-grid" id="featuresGrid">
+            <!-- Card 1: Grounded in Science -->
+            <div class="feature-card-v2">
+                <div class="card-background">
+                    <img src="https://storage.googleapis.com/files_webpage/About%20us%20background%20pictures/Science.jpg" alt="Scientific research collaboration">
                 </div>
-                <!-- Card 2: Actionable Insight -->
-                <div class="feature-card-v2">
-                    <div class="card-background">
-                        <img src="https://storage.googleapis.com/files_webpage/About%20us%20background%20pictures/Data.jpg" alt="Data charts and analytics on a screen">
+                <div class="feature-overlay"></div>
+                <div class="feature-content-v2">
+                    <div class="icon-container">
+                        <i class="fas fa-flask"></i>
                     </div>
-                    <div class="feature-overlay"></div>
-                    <div class="feature-content-v2">
-                        <div class="icon-container">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <div class="text-container">
-                            <h3>Actionable Insight</h3>
-                            <p>We transform complex data into clear, actionable feedback that guides every rep and informs long-term programming.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 3: Intuitive Experience -->
-                <div class="feature-card-v2">
-                    <div class="card-background">
-                        <img src="https://storage.googleapis.com/files_webpage/About%20us%20background%20pictures/Easy%20to%20use.JPG" alt="A person interacting with a seamless user interface">
-                    </div>
-                    <div class="feature-overlay"></div>
-                    <div class="feature-content-v2">
-                        <div class="icon-container">
-                            <i class="fas fa-magic-wand-sparkles"></i>
-                        </div>
-                        <div class="text-container">
-                            <h3>Intuitive Experience</h3>
-                            <p>From instant onboarding to automatic progress tracking, the entire user experience is designed to be powerful, yet seamless.</p>
-                        </div>
+                    <div class="text-container">
+                        <h3>Grounded in Science</h3>
+                        <p>Our platform is built on established biomechanical principles, developed in collaboration with the Norwegian School of Sport Sciences.</p>
                     </div>
                 </div>
             </div>
-       </div>
+            <!-- Card 2: Actionable Insight -->
+            <div class="feature-card-v2">
+                <div class="card-background">
+                    <img src="https://storage.googleapis.com/files_webpage/About%20us%20background%20pictures/Data.jpg" alt="Data charts and analytics on a screen">
+                </div>
+                <div class="feature-overlay"></div>
+                <div class="feature-content-v2">
+                    <div class="icon-container">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="text-container">
+                        <h3>Actionable Insight</h3>
+                        <p>We transform complex data into clear, actionable feedback that guides every rep and informs long-term programming.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3: Intuitive Experience -->
+            <div class="feature-card-v2">
+                <div class="card-background">
+                    <img src="https://storage.googleapis.com/files_webpage/About%20us%20background%20pictures/Easy%20to%20use.JPG" alt="A person interacting with a seamless user interface">
+                </div>
+                <div class="feature-overlay"></div>
+                <div class="feature-content-v2">
+                    <div class="icon-container">
+                        <i class="fas fa-magic-wand-sparkles"></i>
+                    </div>
+                    <div class="text-container">
+                        <h3>Intuitive Experience</h3>
+                        <p>From instant onboarding to automatic progress tracking, the entire user experience is designed to be powerful, yet seamless.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-pagination">
+            <!-- Dots will be dynamically generated by JavaScript -->
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+        </div>
     </section>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const featuresGrid = document.getElementById('featuresGrid');
+            const dotsContainer = document.querySelector('.carousel-pagination');
+            const featureCards = featuresGrid.querySelectorAll('.feature-card-v2');
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            if (!featuresGrid || !dotsContainer || featureCards.length === 0 || dots.length === 0) {
+                // Hide pagination if elements are not found or not applicable (e.g., desktop view)
+                dotsContainer.style.display = 'none';
+                return;
+            }
+
+            // Function to update active dot
+            function updateActiveDot() {
+                // Only run on mobile where flexbox is active
+                if (window.innerWidth > 768) {
+                    dotsContainer.style.display = 'none'; // Hide if resized to desktop
+                    return;
+                } else {
+                    dotsContainer.style.display = 'flex'; // Ensure visible on mobile
+                }
+
+                const scrollLeft = featuresGrid.scrollLeft;
+                // Get the width of one card + its right margin (the gap)
+                // We use offsetWidth of the first card as all cards are expected to be same width
+                const cardWidthWithGap = featureCards[0].offsetWidth + (parseFloat(getComputedStyle(featuresGrid).gap) || 0); 
+                
+                // Calculate which card is currently in view
+                // We add a small offset (e.g., 50px) to ensure it snaps before center of card
+                // Or simply round to nearest whole card
+                const activeIndex = Math.round(scrollLeft / cardWidthWithGap);
+
+                dots.forEach((dot, index) => {
+                    if (index === activeIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // Event listener for scroll on the grid
+            featuresGrid.addEventListener('scroll', updateActiveDot);
+
+            // Add click listeners to dots to jump to cards
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    const cardToScrollTo = featureCards[index];
+                    if (cardToScrollTo) {
+                        // Calculate position relative to the scroll container's start
+                        const scrollPosition = cardToScrollTo.offsetLeft - featuresGrid.offsetLeft;
+                        featuresGrid.scrollTo({
+                            left: scrollPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Update on initial load and window resize
+            updateActiveDot(); // Call once on load
+            window.addEventListener('resize', updateActiveDot); // Update on resize
+        });
+    </script>
 </body>
 </html>
