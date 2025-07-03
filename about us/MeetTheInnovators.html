@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alphatek - Meet the Innovators Section</title>
+    <title>Alphatek - Meet the Innovators Section (Mobile Friendly)</title>
 
     <!-- External Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,13 +38,48 @@
             line-height: 1.7;
             font-weight: var(--font-weight-light);
         }
+        /* Container is only for section titles/text on mobile, carousel breaks out */
         .container { width: 90%; max-width: 1100px; margin: 0 auto; }
         h2, h3 { font-weight: var(--font-weight-bold); color: var(--color-brand-white); margin: 0; }
         p { margin-bottom: 1.5em; }
-        .content-section { padding: 120px 20px; }
+
+        /* ADJUSTED: Responsive padding for content sections */
+        .content-section { padding: 120px 0; /* Horizontal padding will be applied to inner elements */ }
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 60px 0; /* Reduced vertical padding for mobile */
+            }
+        }
+        @media (max-width: 480px) {
+            .content-section {
+                padding: 40px 0; /* Further reduced for very small screens */
+            }
+        }
+
         .divider { width: 80px; height: 3px; background-color: var(--color-brand-accent); margin: 0 auto 40px auto; border-radius: 2px; }
-        h2.section-title { font-size: clamp(2rem, 5vw, 2.8rem); text-align: center; margin-bottom: 1.5em; font-weight: var(--font-weight-bold); }
-        .section-title-subtext { text-align: center; max-width: 65ch; margin: -1.5em auto 3em auto; }
+        
+        /* ADJUSTED: Responsive heading/subtext margins and padding */
+        h2.section-title { 
+            font-size: clamp(2rem, 5vw, 2.8rem); 
+            text-align: center; 
+            margin-bottom: 1.5em; 
+            font-weight: var(--font-weight-bold); 
+            padding: 0 20px; /* Ensure horizontal padding for title */
+        }
+        .section-title-subtext { 
+            text-align: center; 
+            max-width: 65ch; 
+            margin: -1.5em auto 3em auto; 
+            padding: 0 20px; /* Ensure horizontal padding for subtext */
+        }
+        @media (max-width: 768px) {
+            h2.section-title { margin-bottom: 1em; }
+            .section-title-subtext { margin: -1em auto 2em auto; font-size: 0.95rem; }
+        }
+        @media (max-width: 480px) {
+            .section-title-subtext { margin: -0.5em auto 1.5em auto; font-size: 0.9rem; }
+        }
+
         .blurred-section { 
             background-color: rgba(13, 13, 13, 0.5); 
             backdrop-filter: blur(16px); 
@@ -54,25 +89,101 @@
         }
         /* --- END: ESSENTIAL STYLES --- */
 
-        /* --- START: CSS FOR TEAM CAROUSEL (ISOLATED) --- */
-        .team-carousel-container { position: relative; padding: 0 50px; }
-        .swiper-slide { text-align: center; }
+        /* --- START: CSS FOR TEAM CAROUSEL --- */
+        /* Removed fixed padding for team-carousel-container, Swiper's internal padding handles it on mobile */
+        .team-carousel-container { position: relative; } 
+        
+        .swiper-slide { 
+            text-align: center; 
+            /* Added padding to slides directly for spacing on mobile */
+            padding: 0 10px; /* Gives some inner padding to each slide on mobile */
+        }
+        @media (min-width: 769px) { /* Only apply specific slide padding on desktop where slidesPerView > 1 */
+            .swiper-slide {
+                padding: 0; /* Remove extra padding on desktop */
+            }
+        }
+
         .team-member-card { display: flex; flex-direction: column; align-items: center; }
-        .team-photo-link { display: block; position: relative; width: 270px; height: 270px; border-radius: 50%; overflow: hidden; margin-bottom: 25px; border: 4px solid var(--color-grey-dark); }
+        
+        /* ADJUSTED: Responsive photo size */
+        .team-photo-link { 
+            display: block; 
+            position: relative; 
+            width: min(60vw, 270px); /* Use min() to make it responsive but cap at 270px */
+            height: min(60vw, 270px); 
+            border-radius: 50%; 
+            overflow: hidden; 
+            margin-bottom: 25px; 
+            border: 4px solid var(--color-grey-dark); 
+            margin-left: auto; /* Center photo within card */
+            margin-right: auto; /* Center photo within card */
+        }
+        /* Reduce margin-bottom slightly for mobile */
+        @media (max-width: 768px) {
+            .team-photo-link { margin-bottom: 15px; }
+        }
+
         .team-photo { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.3s ease, filter 0.3s ease; }
         .photo-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(47, 124, 83, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
         .photo-overlay .fa-envelope { color: var(--color-brand-white); font-size: 4rem; }
         .team-photo-link:hover .photo-overlay { opacity: 1; }
         .team-photo-link:hover .team-photo { transform: scale(1.05); filter: brightness(0.6); }
+        
+        /* ADJUSTED: Responsive text sizes */
         .team-member-card h3 { font-size: 1.6rem; margin-bottom: 5px; }
+        @media (max-width: 768px) {
+            .team-member-card h3 { font-size: 1.4rem; }
+        }
+
         .team-member-card .title { color: var(--color-brand-accent); font-weight: var(--font-weight-medium); font-size: 1rem; }
-        .swiper-button-next, .swiper-button-prev { width: 50px; height: 50px; background-color: rgba(10, 10, 10, 0.5); border-radius: 50%; transition: background-color 0.2s ease; }
+        @media (max-width: 768px) {
+            .team-member-card .title { font-size: 0.9rem; }
+        }
+        
+        /* Swiper Navigation Buttons (Arrows) */
+        .swiper-button-next, .swiper-button-prev { 
+            width: 50px; 
+            height: 50px; 
+            background-color: rgba(10, 10, 10, 0.5); 
+            border-radius: 50%; 
+            transition: background-color 0.2s ease; 
+        }
         .swiper-button-next:hover, .swiper-button-prev:hover { background-color: var(--color-brand-accent); }
         .swiper-button-next:after, .swiper-button-prev:after { font-size: 1.2rem; color: var(--color-brand-white); font-weight: 900; }
         .swiper-button-prev { left: 0; }
         .swiper-button-next { right: 0; }
-        /* --- END: CSS FOR TEAM CAROUSEL --- */
 
+        /* HIDE NAVIGATION BUTTONS ON MOBILE */
+        @media (max-width: 768px) {
+            .swiper-button-next, .swiper-button-prev {
+                display: none; /* Hide arrows on mobile, rely on swipe and dots */
+            }
+        }
+
+        /* Swiper Pagination (Dots) */
+        .swiper-pagination {
+            position: relative; /* Make it flow with content, not absolute bottom of viewport */
+            margin-top: 30px; /* Space above dots */
+            bottom: unset !important; /* Override Swiper's default bottom positioning */
+        }
+        .swiper-pagination-bullet {
+            background-color: rgba(255, 255, 255, 0.3); /* Inactive dot color */
+            opacity: 1; /* Ensure consistent opacity */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .swiper-pagination-bullet-active {
+            background-color: var(--color-brand-accent); /* Active dot color */
+            transform: scale(1.2); /* Slightly larger for active dot */
+        }
+
+        /* Hide pagination on desktop if not desired */
+        @media (min-width: 769px) {
+            .swiper-pagination {
+                display: none;
+            }
+        }
+        /* --- END: CSS FOR TEAM CAROUSEL --- */
     </style>
 </head>
 <body>
@@ -83,141 +194,160 @@
             <div class="divider"></div>
             <h2 class="section-title">Meet the Innovators</h2>
             <p class="section-title-subtext">Our strength is our multidisciplinary team, combining expertise from sports science, engineering, and business to push the boundaries of performance technology.</p>
-            <div class="team-carousel-container">
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                        <!-- Ola Næss Kaldestad -->
+        </div>
+        <!-- Swiper container. On mobile, it will effectively break out of .container for full-width swipe -->
+        <div class="team-carousel-container">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <!-- Your Swiper Slides (Team Members) -->
+                    <!-- Ola Næss Kaldestad -->
+                    <div class="swiper-slide">
+                        <div class="team-member-card">
+                            <a href="mailto:ola.kaldestad@alphatek.com" class="team-photo-link">
+                                <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/ONK.jpg" alt="Photo of Ola Næss Kaldestad" class="team-photo">
+                                <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
+                            </a>
+                            <h3>Ola Næss Kaldestad</h3>
+                            <span class="title">CEO & System Architect</span>
+                        </div>
+                    </div>
+                    <!-- Erik Vassøy Olsen -->
+                    <div class="swiper-slide">
+                        <div class="team-member-card">
+                            <a href="mailto:erik.olsen@alphatek.com" class="team-photo-link">
+                                <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/EVO.jpg" alt="Photo of Erik Vassøy Olsen" class="team-photo">
+                                <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
+                            </a>
+                            <h3>Erik Vassøy Olsen</h3>
+                            <span class="title">CFO & Mechanical Design</span>
+                        </div>
+                    </div>
+                    <!-- Aleksander Ferkingstad -->
+                    <div class="swiper-slide">
+                        <div class="team-member-card">
+                            <a href="mailto:aleksander.ferkingstad@alphatek.com" class="team-photo-link">
+                                <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/AKF.jpg" alt="Photo of Aleksander Ferkingstad" class="team-photo">
+                                <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
+                            </a>
+                            <h3>Aleksander Ferkingstad</h3>
+                            <span class="title">Algorithm Development</span>
+                        </div>
+                    </div>
+                        <!-- Olav Risa -->
                         <div class="swiper-slide">
                             <div class="team-member-card">
-                                <a href="mailto:ola.kaldestad@alphatek.com" class="team-photo-link">
-                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/ONK.jpg" alt="Photo of Ola Næss Kaldestad" class="team-photo">
+                                <a href="mailto:olav.risa@alphatek.com" class="team-photo-link">
+                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/OR.jpg" alt="Photo of Olav Risa" class="team-photo">
                                     <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
                                 </a>
-                                <h3>Ola Næss Kaldestad</h3>
-                                <span class="title">CEO & System Architect</span>
+                                <h3>Olav Risa</h3>
+                                <span class="title">Operations Manager</span>
                             </div>
                         </div>
-                        <!-- Erik Vassøy Olsen -->
+                    <!-- Åsmund Tveitevoll -->
+                    <div class="swiper-slide">
+                        <div class="team-member-card">
+                            <a href="mailto:asmund.tveitevoll@alphatek.com" class="team-photo-link">
+                                <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/%C3%85T.jpg" alt="Photo of Åsmund Tveitevoll" class="team-photo">
+                                <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
+                            </a>
+                            <h3>Åsmund Tveitevoll</h3>
+                            <span class="title">Research Coordinator</span>
+                        </div>
+                    </div>
+                    <!-- Christian Stigler -->
+                    <div class="swiper-slide">
+                        <div class="team-member-card">
+                            <a href="mailto:christian.stigler@alphatek.com" class="team-photo-link">
+                                <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/CS.jpg" alt="Photo of Christian Stigler" class="team-photo">
+                                <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
+                            </a>
+                            <h3>Christian Stigler</h3>
+                            <span class="title">Concept Development</span>
+                        </div>
+                    </div>
+                        <!-- Manuel Alfaro -->
                         <div class="swiper-slide">
                             <div class="team-member-card">
-                                <a href="mailto:erik.olsen@alphatek.com" class="team-photo-link">
-                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/EVO.jpg" alt="Photo of Erik Vassøy Olsen" class="team-photo">
+                                <a href="mailto:manuel.alfaro@alphatek.com" class="team-photo-link">
+                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/MA.jpg" alt="Photo of Manuel Alfaro" class="team-photo">
                                     <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
                                 </a>
-                                <h3>Erik Vassøy Olsen</h3>
-                                <span class="title">CFO & Mechanical Design</span>
+                                <h3>Manuel Alfaro</h3>
+                                <span class="title">Training & Onboarding</span>
                             </div>
                         </div>
-                        <!-- Aleksander Ferkingstad -->
-                        <div class="swiper-slide">
-                            <div class="team-member-card">
-                                <a href="mailto:aleksander.ferkingstad@alphatek.com" class="team-photo-link">
-                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/AKF.jpg" alt="Photo of Aleksander Ferkingstad" class="team-photo">
-                                    <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
-                                </a>
-                                <h3>Aleksander Ferkingstad</h3>
-                                <span class="title">Algorithm Development</span>
-                            </div>
+                    <!-- Marie Levin Matre -->
+                    <div class="swiper-slide">
+                        <div class="team-member-card">
+                            <a href="mailto:marie.matre@alphatek.com" class="team-photo-link">
+                                <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/MLM.png" alt="Photo of Marie Levin Matre" class="team-photo">
+                                <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
+                            </a>
+                            <h3>Marie Levin Matre</h3>
+                            <span class="title">Concept Development</span>
                         </div>
-                         <!-- Olav Risa -->
-                         <div class="swiper-slide">
-                             <div class="team-member-card">
-                                 <a href="mailto:olav.risa@alphatek.com" class="team-photo-link">
-                                     <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/OR.jpg" alt="Photo of Olav Risa" class="team-photo">
-                                     <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
-                                 </a>
-                                 <h3>Olav Risa</h3>
-                                 <span class="title">Operations Manager</span>
-                             </div>
-                         </div>
-                        <!-- Åsmund Tveitevoll -->
-                        <div class="swiper-slide">
-                            <div class="team-member-card">
-                                <a href="mailto:asmund.tveitevoll@alphatek.com" class="team-photo-link">
-                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/%C3%85T.jpg" alt="Photo of Åsmund Tveitevoll" class="team-photo">
-                                    <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
-                                </a>
-                                <h3>Åsmund Tveitevoll</h3>
-                                <span class="title">Research Coordinator</span>
-                            </div>
-                        </div>
-                        <!-- Christian Stigler -->
-                        <div class="swiper-slide">
-                            <div class="team-member-card">
-                                <a href="mailto:christian.stigler@alphatek.com" class="team-photo-link">
-                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/CS.jpg" alt="Photo of Christian Stigler" class="team-photo">
-                                    <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
-                                </a>
-                                <h3>Christian Stigler</h3>
-                                <span class="title">Concept Development</span>
-                            </div>
-                        </div>
-                         <!-- Manuel Alfaro -->
-                         <div class="swiper-slide">
-                             <div class="team-member-card">
-                                 <a href="mailto:manuel.alfaro@alphatek.com" class="team-photo-link">
-                                     <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/MA.jpg" alt="Photo of Manuel Alfaro" class="team-photo">
-                                     <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
-                                 </a>
-                                 <h3>Manuel Alfaro</h3>
-                                 <span class="title">Training & Onboarding</span>
-                             </div>
-                         </div>
-                        <!-- Marie Levin Matre -->
-                        <div class="swiper-slide">
-                            <div class="team-member-card">
-                                <a href="mailto:marie.matre@alphatek.com" class="team-photo-link">
-                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/MLM.png" alt="Photo of Marie Levin Matre" class="team-photo">
-                                    <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
-                                </a>
-                                <h3>Marie Levin Matre</h3>
-                                <span class="title">Concept Development</span>
-                            </div>
-                        </div>
-                        <!-- Oskar Thorsen -->
-                        <div class="swiper-slide">
-                            <div class="team-member-card">
-                                <a href="mailto:oskar.thorsen@alphatek.com" class="team-photo-link">
-                                    <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/OT.jpg" alt="Photo of Oskar Thorsen" class="team-photo">
-                                    <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
-                                </a>
-                                <h3>Oskar Thorsen</h3>
-                                <span class="title">Sales</span>
-                            </div>
+                    </div>
+                    <!-- Oskar Thorsen -->
+                    <div class="swiper-slide">
+                        <div class="team-member-card">
+                            <a href="mailto:oskar.thorsen@alphatek.com" class="team-photo-link">
+                                <img src="https://storage.googleapis.com/files_webpage/Team%20member%20pictures/OT.jpg" alt="Photo of Oskar Thorsen" class="team-photo">
+                                <div class="photo-overlay"><i class="fas fa-envelope"></i></div>
+                            </a>
+                            <h3>Oskar Thorsen</h3>
+                            <span class="title">Sales</span>
                         </div>
                     </div>
                 </div>
-                <!-- Navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
             </div>
+            <!-- Swiper Navigation buttons (will be hidden on mobile by CSS) -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <!-- Swiper Pagination (Dots - will be shown on mobile by CSS) -->
+            <div class="swiper-pagination"></div>
         </div>
     </section>
     <!-- END: ISOLATED SECTION -->
-
 
     <!-- Swiper.js JS for the carousel -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Initialize Swiper Carousel
         const swiper = new Swiper('.swiper', {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: 30,
+            loop: true, // For continuous looping
+            
+            // Default settings for mobile (or smallest screens)
+            slidesPerView: 1.1, // Show 1 card plus a peek of the next one
+            centeredSlides: true, // Center the active slide
+            spaceBetween: 20, // Space between slides
+
+            // Pagination (Dots)
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+
+            // Navigation arrows
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
+
+            // Responsive breakpoints
             breakpoints: {
-                768: {
+                // When window width is >= 769px
+                769: { // Changed from 768 to 769 to align with CSS media queries
                     slidesPerView: 2,
-                    spaceBetween: 40
+                    spaceBetween: 40,
+                    centeredSlides: false, // No longer centered when multiple slides are visible
                 },
+                // When window width is >= 1100px
                 1100: {
                     slidesPerView: 3,
-                    spaceBetween: 20
+                    spaceBetween: 20,
+                    centeredSlides: false,
                 }
             }
         });
