@@ -1,0 +1,203 @@
+/* --- features-section.css --- */
+
+/* 
+  STEP 1: ROOT VARIABLES
+  Add these variables to your main stylesheet's :root {} block.
+  If you don't have one, you can keep this here, but it's best practice 
+  to have a single source for all site-wide variables.
+*/
+:root {
+    --color-brand-black: #0D0D0D;
+    --color-brand-accent: rgb(47, 124, 83);
+    --color-brand-white: #FFFFFF;
+    --color-grey-darkest: #1A1A1A;
+}
+
+/* --- MAIN SECTION STYLES --- */
+.features-section { 
+    padding: 100px 0;
+    position: relative; 
+    background-color: var(--color-grey-darkest); 
+}
+
+/* --- DESKTOP GRID LAYOUT --- */
+.features-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 40px; 
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- CARD STYLES (SHARED) --- */
+.feature-card-v2 {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.feature-card-v2:hover {
+    transform: translateY(-10px);
+}
+
+.card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.card-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.feature-card-v2:hover .card-background img {
+    transform: scale(1.08);
+}
+.card-background::after { 
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; 
+    background: linear-gradient(to top, var(--color-brand-black) 20%, transparent 100%);
+}
+
+.feature-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 13, 13, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+.feature-card-v2:hover .feature-overlay {
+    background: rgba(47, 124, 83, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.feature-content-v2 {
+    position: relative;
+    z-index: 3;
+    color: var(--color-brand-white);
+    padding: 30px 35px;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Aligns content to the bottom */
+}
+.feature-icon-top {
+    font-size: 3.125rem;
+    color: var(--color-brand-accent);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0.4em;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+.feature-card-v2:hover .feature-icon-top {
+    transform: scale(1.1);
+    color: var(--color-brand-white);
+}
+.feature-content-v2 h3 {
+    font-size: 1.8rem;
+    font-weight: 700; /* Using var(--font-weight-bold) */
+    color: var(--color-brand-white);
+    margin-bottom: 0.8em;
+    line-height: 1.2;
+    text-align: center;
+}
+.feature-content-v2 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.feature-content-v2 ul li {
+    font-size: 0.95rem;
+    color: #D9D9D9; /* Using var(--color-grey-lightest) */
+    margin-bottom: 0.8em;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.5;
+}
+.feature-content-v2 ul li:last-child {
+    margin-bottom: 0;
+}
+.feature-content-v2 ul li i {
+    color: var(--color-brand-accent);
+    margin-right: 12px;
+    font-size: 1.1rem;
+    margin-top: 4px; 
+    transition: color 0.4s ease, transform 0.3s ease;
+}
+.feature-card-v2:hover .feature-content-v2 ul li i {
+     color: var(--color-brand-white);
+     transform: scale(1.2);
+}
+
+/* --- MOBILE CAROUSEL STYLES --- */
+
+/* Carousel Dots - Hidden on Desktop by default */
+.carousel-dots {
+    display: none;
+}
+
+/* Media query for screens smaller than 768px */
+@media(max-width: 768px) {
+    .features-carousel-wrapper {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .features-carousel-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .features-grid {
+        display: flex;
+        gap: 20px;
+        padding: 0 5vw;
+        width: fit-content;
+    }
+    
+    .feature-card-v2 {
+        flex-shrink: 0;
+        width: 90vw;
+        scroll-snap-align: center;
+        min-height: 320px;
+    }
+
+    /* Show and style the dots on mobile */
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 24px;
+    }
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .dot.active {
+        background-color: var(--color-brand-accent);
+        transform: scale(1.2);
+    }
+}
